@@ -23,8 +23,13 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const rows = items.map((item) => [
-      new Date().toISOString(),
+    function nowKST() {
+  const kst = new Date(Date.now() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().replace('T', ' ').replace('Z', '');
+}
+
+const rows = items.map((item) => [
+  nowKST(),
       date,
       dept,
       receiver,
